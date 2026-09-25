@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Hannah!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --card-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+            --accent-peach: #fceade;
+            --accent-orange: #f4a261;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            padding-bottom: 50px;
+        }
+
+        /* Top decorative bar */
+        .top-bar {
+            width: 100%;
+            height: 12px;
+            background: repeating-linear-gradient(45deg, #ff6b6b, #ff6b6b 15px, #feca57 15px, #feca57 30px, #48dbfb 30px, #48dbfb 45px);
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .action-prompt {
+            margin: 30px 0 10px 0;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* Wish Button */
+        .wish-btn {
+            background-color: #2b2b2b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.2s, background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .wish-btn:hover {
+            background-color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* Photo Gallery Card */
+        .photo-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            width: 340px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .photo-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .photo-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .thumbnail-nav {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .thumb {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.6;
+            transition: all 0.2s;
+        }
+
+        .thumb.active, .thumb:hover {
+            border-color: #2b2b2b;
+            opacity: 1;
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swipe-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        /* Reasons Section */
+        .reasons-section {
+            width: 100%;
+            max-width: 700px;
+            padding: 0 20px;
+            margin-bottom: 60px;
+        }
+
+        .badge-pill {
+            text-align: center;
+            background: #eee;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .accordion-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: background-color 0.2s;
+        }
+
+        .accordion-item:hover {
+            background-color: #fcfcfc;
+        }
+
+        .accordion-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+        }
+
+        .heart-icon-btn {
+            background: #f0f0f0;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .more-reasons {
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* Spin Wheel Section */
+        .wheel-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 20px auto;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 6px solid #2b2b2b;
+            position: relative;
+            overflow: hidden;
+            background: conic-gradient(
+                #fceade 0deg 180deg,
+                #f4a261 180deg 360deg
+            );
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 20px solid #2b2b2b;
+            z-index: 10;
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: #2b2b2b;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .result-pill {
+            margin-top: 15px;
+            display: inline-block;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        /* Envelope Letter Section */
+        .envelope-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .envelope-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 320px;
+            padding: 20px;
+            margin: 20px auto 0 auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .envelope-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .envelope-graphic {
+            background: #eaeaea;
+            height: 120px;
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .envelope-icon {
+            font-size: 2.5rem;
+        }
+
+        /* Modal Popup for Letter */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-letter {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative;
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #333;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal-letter {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Spotify Section */
+        .music-section {
+            width: 100%;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .song-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .song-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .song-index {
+            background: #f0f0f0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .song-details h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .song-details p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .spotify-link {
+            text-decoration: none;
+            background: #1db954;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .spotify-link:hover {
+            background: #1aa34a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar"></div>
+
+    <header>
+        <h1>Happy Birthday, Hannah</h1>
+        <p>Happiest birthday to someone I'd love to get to know a whole lot better.</p>
+        <div class="action-prompt">Before you blow out the candles...</div>
+        <button class="wish-btn" onclick="makeWish()">
+            <span>✨</span> Make a Wish!
+        </button>
+    </header>
+
+    <!-- Photo Gallery Card (6 Photos) -->
+    <div class="photo-card">
+        <div class="photo-container">
+            <span class="photo-badge" id="photo-counter">1 / 6</span>
+            <img id="main-photo" src="photo1.jpg" alt="Birthday person">
+        </div>
+        <div class="photo-caption" id="photo-caption">Happy Birthday po :)</div>
+        <div class="thumbnail-nav">
+            <div class="thumb active" onclick="changePhoto(0, 'photo1.jpg')">
+                <img src="photo1.jpg" alt="thumb">
+            </div>
+            <div class="thumb" onclick="changePhoto(1, 'photo2.jpg')">
+                <img src="photo2.jpg" alt="thumb">
+            </div>
+            <div class="thumb" onclick="changePhoto(2, 'photo3.jpg')">
+                <img src="photo3.jpg" alt="thumb">
+            </div>
+            <div class="thumb" onclick="changePhoto(3, 'photo4.jpg')">
+                <img src="photo4.jpg" alt="thumb">
+            </div>
+            <div class="thumb" onclick="changePhoto(4, 'photo5.jpg')">
+                <img src="photo5.jpg" alt="thumb">
+            </div>
+            <div class="thumb" onclick="changePhoto(5, 'photo6.jpg')">
+                <img src="photo6.jpg" alt="thumb">
+            </div>
+        </div>
+        <div class="swipe-hint">Click thumbnails to view photos</div>
+    </div>
+
+    <!-- Reasons Section -->
+    <div class="reasons-section">
+        <div style="text-align: center;"><span class="badge-pill">8 Reasons</span></div>
+        <h2 class="section-title">Reasons Why You Mean Everything To The People You Know</h2>
+        <p class="section-subtitle">(and to me hehe)</p>
+
+        <div class="accordion-item">
+            <div class="accordion-content">
+                <span class="accordion-icon">🌸</span>
+                <span>How your smile is so contagious</span>
+            </div>
+            <button class="heart-icon-btn">🤍</button>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-content">
+                <span class="accordion-icon">🤍</span>
+                <span>That laugh of yours that's impossible not to smile at</span>
+            </div>
+            <button class="heart-icon-btn">🤍</button>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-content">
+                <span class="accordion-icon">🌷</span>
+                <span>How thoughtful you are with everyone you love</span>
+            </div>
+            <button class="heart-icon-btn">🤍</button>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-content">
+                <span class="accordion-icon">💖</span>
+                <span>How being around you feels like listening to a favorite, comforting song</span>
+            </div>
+            <button class="heart-icon-btn">🤍</button>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-content">
+                <span class="accordion-icon">💌</span>
+                <span>The way you make ordinary days feel special</span>
+            </div>
+            <button class="heart-icon-btn">🤍</button>
+        </div>
+        
+        <div class="more-reasons">...and a hundred more I ran out of room for</div>
+    </div>
+
+    <!-- Spin Wheel Section -->
+    <div class="wheel-section">
+        <h2 class="section-title">Spin for Your Birthday Surprise</h2>
+        <p class="section-subtitle">2 things could happen next</p>
+        
+        <div class="wheel-container">
+            <div class="wheel-pointer"></div>
+            <div class="wheel" id="surpriseWheel"></div>
+            <div class="wheel-center">▶</div>
+        </div>
+        
+        <button class="wish-btn" onclick="spinWheel()" style="margin-top: 15px; margin-bottom: 10px;">Spin the Wheel</button>
+        <div>
+            <div class="result-pill" id="wheelResult">🎁 Something Special</div>
+        </div>
+    </div>
+
+    <!-- Envelope Letter Section -->
+    <div class="envelope-section">
+        <div class="envelope-card" onclick="openModal()">
+            <div class="envelope-graphic">
+                <span class="envelope-icon">✉️</span>
+            </div>
+            <div style="font-weight: 600; font-size: 0.9rem;">Tap to open</div>
+        </div>
+    </div>
+
+    <!-- Letter Modal Overlay -->
+    <div class="modal-overlay" id="letterModal" onclick="closeModal(event)">
+        <div class="modal-letter">
+            <button class="close-modal" onclick="closeModalButton()">&times;</button>
+            To be honest, every single time we talk, it genuinely makes my whole day. You have this way of making everything feel lighter, and you’ve easily become one of my favorite parts of everyday life. You're so effortlessly beautiful and amazing inside and out, and I just couldn't let your birthday pass without telling you that.<br><br>
+            I hope you get everything you're wishing for today because you deserve the absolute best. And honestly, I really hope I get to be around for a long time, and that I get to spend many more birthdays celebrating you like this.<br><br>
+            Happy Birthday, Hannah :)
+        </div>
+    </div>
+
+    <!-- Music Section -->
+    <div class="music-section">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <span class="badge-pill">For Your Special Day · 2 Tracks</span>
+            <h3 style="font-size: 1.5rem; margin-top: 5px;">Songs That Remind Me of You</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Just a little something that pops into my mind whenever I think of you</p>
+        </div>
+
+        <div class="song-card">
+            <div class="song-info">
+                <div class="song-index">01</div>
+                <div class="song-details">
+                    <h4>Those Eyes <span style="font-size: 0.75rem; color: #1db954; font-weight: 600;">SPOTIFY</span></h4>
+                    <p>New West</p>
+                    <p style="font-style: italic; font-size: 0.75rem; margin-top: 4px;">"Because this is literally what plays in my head every time I catch myself staring at your smile."</p>
+                </div>
+            </div>
+            <a href="https://spotify.com" target="_blank" class="spotify-link">Play</a>
+        </div>
+
+        <div class="song-card">
+            <div class="song-info">
+                <div class="song-index">02</div>
+                <div class="song-details">
+                    <h4>Transform <span style="font-size: 0.75rem; color: #1db954; font-weight: 600;">SPOTIFY</span></h4>
+                    <p>Daniel Caesar</p>
+                    <p style="font-style: italic; font-size: 0.75rem; margin-top: 4px;">"Because every time I listen to this, it reminds me of how you completely brighten up my days and make every thing feel lighter just by being around."</p>
+                </div>
+            </div>
+            <a href="https://spotify.com" target="_blank" class="spotify-link">Play</a>
+        </div>
+    </div>
+
+    <script>
+        // Photo Gallery logic for 6 photos
+        function changePhoto(index, url) {
+            document.getElementById('main-photo').src = url;
+            document.getElementById('photo-counter').innerText = (index + 1) + ' / 6';
+            
+            const thumbs = document.querySelectorAll('.thumb');
+            thumbs.forEach((t, i) => {
+                if(i === index) t.classList.add('active');
+                else t.classList.remove('active');
+            });
+        }
+
+        // Wish Action Effect
+        function makeWish() {
+            alert("✨ Your wish has been sent to the universe for Hannah! Make sure to treat her extra special today!");
+        }
+
+        // Spin Wheel Logic
+        let currentRotation = 0;
+        function spinWheel() {
+            const wheel = document.getElementById('surpriseWheel');
+            const resultPill = document.getElementById('wheelResult');
+            const randomDegree = Math.floor(Math.random() * 360) + 1440; 
+            currentRotation += randomDegree;
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            resultPill.innerText = "Spinning...";
+            setTimeout(() => {
+                const outcomes = ["🎁 Something Special", "💖 Endless Hugs", "🍫 Sweet Treat", "⭐ A Big Surprise"];
+                const randomOutcome = outcomes[Math.floor(Math.random() * outcomes.length)];
+                resultPill.innerText = randomOutcome;
+            }, 4000);
+        }
+
+        // Modal Letter Logic
+        function openModal() {
+            document.getElementById('letterModal').classList.add('active');
+        }
+
+        function closeModalButton() {
+            document.getElementById('letterModal').classList.remove('active');
+        }
+
+        function closeModal(event) {
+            if(event.target.id === 'letterModal') {
+                document.getElementById('letterModal').classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
