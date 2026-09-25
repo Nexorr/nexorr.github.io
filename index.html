@@ -256,7 +256,7 @@
             margin-top: 20px;
         }
 
-        /* Spin Wheel Section */
+        /* Spin Wheel Section with Text Labels */
         .wheel-section {
             text-align: center;
             margin-bottom: 60px;
@@ -282,6 +282,26 @@
             );
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
         }
+
+        /* Slice text styling */
+        .wheel-slice-text {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            top: 0;
+            left: 50%;
+            transform-origin: 0% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #2b2b2b;
+        }
+
+        .slice-1 { transform: rotate(0deg); }
+        .slice-2 { transform: rotate(180deg); }
 
         .wheel-pointer {
             position: absolute;
@@ -311,6 +331,7 @@
             justify-content: center;
             font-size: 0.8rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 5;
         }
 
         .result-pill {
@@ -564,14 +585,17 @@
         <div class="more-reasons">...and a hundred more I ran out of room for</div>
     </div>
 
-    <!-- Spin Wheel Section -->
+    <!-- Spin Wheel Section with Text Labels -->
     <div class="wheel-section">
         <h2 class="section-title">Spin for Your Birthday Surprise</h2>
         <p class="section-subtitle">2 things could happen next</p>
         
         <div class="wheel-container">
             <div class="wheel-pointer"></div>
-            <div class="wheel" id="surpriseWheel"></div>
+            <div class="wheel" id="surpriseWheel">
+                <div class="wheel-slice-text slice-1">Something Special</div>
+                <div class="wheel-slice-text slice-2">Something Sweet</div>
+            </div>
             <div class="wheel-center">▶</div>
         </div>
         
@@ -597,7 +621,7 @@
             <button class="close-modal" onclick="closeModalButton()">&times;</button>
             To be honest, every single time we talk, it genuinely makes my whole day. You have this way of making everything feel lighter, and you’ve easily become one of my favorite parts of everyday life. You're so effortlessly beautiful and amazing inside and out, and I just couldn't let your birthday pass without telling you that.<br><br>
             I hope you get everything you're wishing for today because you deserve the absolute best. And honestly, I really hope I get to be around for a long time, and that I get to spend many more birthdays celebrating you like this.<br><br>
-            Happy Birthday, Hannah :)
+            Happy Birthday, Hannah :>
         </div>
     </div>
 
@@ -649,7 +673,7 @@
 
         // Wish Action Effect
         function makeWish() {
-            alert("✨ Your wish has been sent to the universe for Hannah! Make sure to treat her extra special today!");
+            alert("✨ Your wish has been sent to the Universe!");
         }
 
         // Spin Wheel Logic
