@@ -214,7 +214,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
             transition: background-color 0.2s;
         }
@@ -676,20 +675,37 @@
             alert("✨ Your wish has been sent to the Universe!");
         }
 
-        // Spin Wheel Logic
+        // Spin Wheel Logic (Fixed)
         let currentRotation = 0;
+        let isSpinning = false;
+
         function spinWheel() {
+            if (isSpinning) return;
+            isSpinning = true;
+
             const wheel = document.getElementById('surpriseWheel');
             const resultPill = document.getElementById('wheelResult');
-            const randomDegree = Math.floor(Math.random() * 360) + 1440; 
-            currentRotation += randomDegree;
+            
+            resultPill.innerText = "Spinning...";
+
+            // Randomly choose outcome: 0 for "Something Special", 1 for "Something Sweet"
+            const outcomeIndex = Math.floor(Math.random() * 2);
+            const outcomes = ["🎁 Something Special", "🍪 Something Sweet"];
+            
+            // Slice 1 center is ~90deg, Slice 2 center is ~270deg relative to top pointer
+            // We add multiple full rotations (e.g., 1440deg = 4 full spins) plus the target offset
+            const targetOffset = outcomeIndex === 0 ? 90 : 270;
+            
+            // Calculate total degree rotation to ensure smooth accumulation without resetting backwards
+            const extraSpins = 360 * 5; 
+            currentRotation = Math.ceil(currentRotation / 360) * 360 + extraSpins + (360 - targetOffset);
+
             wheel.style.transform = `rotate(${currentRotation}deg)`;
 
-            resultPill.innerText = "Spinning...";
+            // Update text after transition finishes (matches 4s CSS transition time)
             setTimeout(() => {
-                const outcomes = ["🎁 Something Special","🍪 Something Sweet"];
-                const randomOutcome = outcomes[Math.floor(Math.random() * outcomes.length)];
-                resultPill.innerText = randomOutcome;
+                resultPill.innerText = outcomes[outcomeIndex];
+                isSpinning = false;
             }, 4000);
         }
 
