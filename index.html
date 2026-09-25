@@ -445,17 +445,15 @@
             border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             margin-bottom: 15px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
-        .song-info {
+        .song-top {
             display: flex;
             align-items: center;
             gap: 15px;
+            margin-bottom: 12px;
         }
 
         .song-index {
@@ -478,21 +476,6 @@
         .song-details p {
             font-size: 0.8rem;
             color: var(--text-muted);
-        }
-
-        .spotify-link {
-            text-decoration: none;
-            background: #1db954;
-            color: white;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-
-        .spotify-link:hover {
-            background: #1aa34a;
         }
     </style>
 </head>
@@ -633,7 +616,7 @@
         </div>
 
         <div class="song-card">
-            <div class="song-info">
+            <div class="song-top">
                 <div class="song-index">01</div>
                 <div class="song-details">
                     <h4>Those Eyes <span style="font-size: 0.75rem; color: #1db954; font-weight: 600;">SPOTIFY</span></h4>
@@ -641,11 +624,12 @@
                     <p style="font-style: italic; font-size: 0.75rem; margin-top: 4px;">"Because this is literally what plays in my head every time I catch myself staring at your smile."</p>
                 </div>
             </div>
-            <a href="https://spotify.com" target="_blank" class="spotify-link">Play</a>
+            <!-- Spotify Embed for "Those Eyes" by New West -->
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3pKkcOgclkkput3Sn7l8C5?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
 
         <div class="song-card">
-            <div class="song-info">
+            <div class="song-top">
                 <div class="song-index">02</div>
                 <div class="song-details">
                     <h4>Transform <span style="font-size: 0.75rem; color: #1db954; font-weight: 600;">SPOTIFY</span></h4>
@@ -653,7 +637,8 @@
                     <p style="font-style: italic; font-size: 0.75rem; margin-top: 4px;">"Because every time I listen to this, it reminds me of how you completely brighten up my days and make every thing feel lighter just by being around."</p>
                 </div>
             </div>
-            <a href="https://spotify.com" target="_blank" class="spotify-link">Play</a>
+            <!-- Spotify Embed for "Transform" by Daniel Caesar -->
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1B1G3vR7l6rY3e92M3B6j8?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
     </div>
 
@@ -688,21 +673,15 @@
             
             resultPill.innerText = "Spinning...";
 
-            // Randomly choose outcome: 0 for "Something Special", 1 for "Something Sweet"
             const outcomeIndex = Math.floor(Math.random() * 2);
             const outcomes = ["🎁 Something Special", "🍪 Something Sweet"];
             
-            // Slice 1 center is ~90deg, Slice 2 center is ~270deg relative to top pointer
-            // We add multiple full rotations (e.g., 1440deg = 4 full spins) plus the target offset
             const targetOffset = outcomeIndex === 0 ? 90 : 270;
-            
-            // Calculate total degree rotation to ensure smooth accumulation without resetting backwards
             const extraSpins = 360 * 5; 
             currentRotation = Math.ceil(currentRotation / 360) * 360 + extraSpins + (360 - targetOffset);
 
             wheel.style.transform = `rotate(${currentRotation}deg)`;
 
-            // Update text after transition finishes (matches 4s CSS transition time)
             setTimeout(() => {
                 resultPill.innerText = outcomes[outcomeIndex];
                 isSpinning = false;
