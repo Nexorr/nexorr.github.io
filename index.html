@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Hannah:> </title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library for Fireworks Effect -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --bg-color: #faf9f6;
@@ -64,7 +66,15 @@
             font-size: 1.2rem;
         }
 
-        /* Wish Button */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        /* Wish & Fireworks Buttons */
         .wish-btn {
             background-color: #2b2b2b;
             color: white;
@@ -79,7 +89,6 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 40px;
         }
 
         .wish-btn:hover {
@@ -282,7 +291,6 @@
             transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
         }
 
-        /* Slice text styling */
         .wheel-slice-text {
             position: absolute;
             width: 50%;
@@ -487,9 +495,16 @@
         <h1>Happy Birthday, Hannah</h1>
         <p>Happiest birthday to someone I'd love to get to know a whole lot better.</p>
         <div class="action-prompt">Before you blow out the candles...</div>
-        <button class="wish-btn" onclick="makeWish()">
-            <span>✨</span> Make a Wish!
-        </button>
+        
+        <!-- Button Group Containing Wish and Fireworks Buttons -->
+        <div class="button-group">
+            <button class="wish-btn" onclick="makeWish()">
+                <span>✨</span> Make a Wish!
+            </button>
+            <button class="wish-btn" onclick="launchFireworks()">
+                <span>🎆</span> Launch Fireworks!
+            </button>
+        </div>
     </header>
 
     <!-- Photo Gallery Card (6 Photos) -->
@@ -660,7 +675,35 @@
             alert("✨ Your wish has been sent to the Universe!");
         }
 
-        // Spin Wheel Logic (Fixed)
+        // Fireworks / Confetti Animation Effect
+        function launchFireworks() {
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#f4a261', '#fceade'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 4,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 4,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+
+                if (Date.now() < animationEnd) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Spin Wheel Logic
         let currentRotation = 0;
         let isSpinning = false;
 
