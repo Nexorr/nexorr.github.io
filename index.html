@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
     <!-- Canvas Confetti Library for Fireworks Effect -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Spotify iFrame API Script -->
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
     <style>
         :root {
             --bg-color: #faf9f6;
@@ -491,7 +493,7 @@
         
         <!-- Combined Action Button -->
         <button class="wish-btn" onclick="makeWish()">
-            <span>✨</span> Make a wish before pressing this button
+            <span>✨</span> make a wish before pressing this button
         </button>
     </header>
 
@@ -635,13 +637,13 @@
             <div class="song-top">
                 <div class="song-index">02</div>
                 <div class="song-details">
-                    <h4>Hold On, We're Going Home <span style="font-size: 0.75rem; color: #1db954; font-weight: 600;">SPOTIFY</span></h4>
-                    <p>Drake</p>
-                    <p style="font-style: italic; font-size: 0.75rem; margin-top: 4px;">"Because i noticed you like drake"</p>
+                    <h4>Transform <span style="font-size: 0.75rem; color: #1db954; font-weight: 600;">SPOTIFY</span></h4>
+                    <p>Daniel Caesar</p>
+                    <p style="font-style: italic; font-size: 0.75rem; margin-top: 4px;">"Because every time I listen to this, it reminds me of how you completely brighten up my days and make every thing feel lighter just by being around."</p>
                 </div>
             </div>
-            <!-- Spotify Embed for "Transform" by Daniel Caesar -->
-           <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6jdOi5U5LBzQrc4c1VT983?utm_source=generator&si=43e78394198e4d7e" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <!-- Spotify iFrame API Target Element for Track 02 (Starts at 3:05) -->
+            <div id="transform-player" style="border-radius:12px; overflow:hidden;"></div>
         </div>
     </div>
 
@@ -689,6 +691,22 @@
             // Trigger Alert Message
             alert("✨ Your wish has been sent to the Universe!");
         }
+
+        // Spotify iFrame API Initialization for "Transform" at 3:05 (185 seconds)
+        window.onSpotifyIframeApiReady = (IFrameAPI) => {
+            const element = document.getElementById('transform-player');
+            const options = {
+                width: '100%',
+                height: '152',
+                uri: 'spotify:track:1K6oXSGIexEyNnv2cS6vKr'
+            };
+            const callback = (EmbedController) => {
+                EmbedController.addListener('ready', () => {
+                    EmbedController.loadEntity('spotify:track:1K6oXSGIexEyNnv2cS6vKr', false, 185);
+                });
+            };
+            IFrameAPI.createController(element, options, callback);
+        };
 
         // Spin Wheel Logic
         let currentRotation = 0;
