@@ -692,8 +692,12 @@
             alert("✨ Your wish has been sent to the Universe!");
         }
 
-        // Spotify iFrame API Initialization for "Transform" at 3:05 (185 seconds)
+        // Spotify iFrame API Initialization for "Transform" at 3:05 (185 seconds) - Loaded Safely Once
+        let spotifyApiLoaded = false;
         window.onSpotifyIframeApiReady = (IFrameAPI) => {
+            if (spotifyApiLoaded) return;
+            spotifyApiLoaded = true;
+
             const element = document.getElementById('transform-player');
             const options = {
                 width: '100%',
