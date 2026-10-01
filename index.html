@@ -533,31 +533,17 @@
         <div class="more-reasons">...and a hundred more I ran out of room for</div>
     </div>
 
-    <!-- Digital Flower Section 1 -->
+    <!-- Digital Flower Section (Replaced Spin Wheel) -->
     <div class="flower-section">
         <h2 class="section-title">A Little Something Extra</h2>
         <p class="section-subtitle">Tap to bloom your digital bouquet</p>
         
         <div class="flower-card">
             <div class="flower-image-container">
-                <img id="flowerImage1" src="image_a3383b.jpg" alt="Digital Flower Bouquet">
+                <img id="flowerImage" src="image_a3383b.jpg" alt="Digital Flower Bouquet">
             </div>
-            <div class="flower-message" id="flowerMessage1">For someone as lovely as you!</div>
-            <button class="wish-btn" onclick="revealFlower(1)" style="margin-bottom: 0;">Get Your Flowers 💐</button>
-        </div>
-    </div>
-
-    <!-- Digital Flower Section 2 (Replaced Spin Wheel) -->
-    <div class="flower-section">
-        <h2 class="section-title">Another Special Bouquet</h2>
-        <p class="section-subtitle">Because one isn't enough for today</p>
-        
-        <div class="flower-card">
-            <div class="flower-image-container">
-                <img id="flowerImage2" src="image_a3383b.jpg" alt="Digital Flower Bouquet">
-            </div>
-            <div class="flower-message" id="flowerMessage2">May your day be filled with extra sunshine!</div>
-            <button class="wish-btn" onclick="revealFlower(2)" style="margin-bottom: 0;">Open Second Bouquet 🌷</button>
+            <div class="flower-message" id="flowerMessage">For someone as lovely as you!</div>
+            <button class="wish-btn" onclick="revealFlower()" style="margin-bottom: 0;">Get Your Flowers 💐</button>
         </div>
     </div>
 
@@ -565,7 +551,7 @@
     <div class="envelope-section">
         <div class="envelope-card" onclick="openModal()">
             <div class="envelope-graphic">
-                <span class="envelope-icon">✉️️</span>
+                <span class="envelope-icon">✉</span>
             </div>
             <div style="font-weight: 600; font-size: 0.9rem;">Tap to open</div>
         </div>
@@ -659,8 +645,8 @@
             alert("✨ Your wish has been sent to the Universe!");
         }
 
-        // Digital Flower Reveal & Fireworks Logic for Multiple Bouquets
-        const flowerMessages1 = [
+        // Digital Flower Reveal & Fireworks Logic
+        const flowerMessages = [
             "For someone as lovely as you!",
             "Brighter than any flower out there 🤍",
             "A little digital bloom for your special day!",
@@ -668,19 +654,10 @@
             "Pure sweetness, just like you."
         ];
 
-        const flowerMessages2 = [
-            "May your day be filled with extra sunshine!",
-            "Sending you the warmest hugs and blooms! ✨",
-            "You deserve all the prettiest things today.",
-            "Hope this brings a smile to your face :>",
-            "Wishing you a wonderful birthday ahead!"
-        ];
-
-        function revealFlower(sectionNum) {
-            const messages = sectionNum === 1 ? flowerMessages1 : flowerMessages2;
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            const imgElement = document.getElementById('flowerImage' + sectionNum);
-            const msg = document.getElementById('flowerMessage' + sectionNum);
+        function revealFlower() {
+            const randomMessage = flowerMessages[Math.floor(Math.random() * flowerMessages.length)];
+            const imgElement = document.getElementById('flowerImage');
+            const msg = document.getElementById('flowerMessage');
 
             msg.innerText = randomMessage;
 
