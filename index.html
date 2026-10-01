@@ -257,92 +257,55 @@
             margin-top: 20px;
         }
 
-        /* Spin Wheel Section with Text Labels */
-        .wheel-section {
+        /* Digital Flower Section Styling */
+        .flower-section {
             text-align: center;
             margin-bottom: 60px;
-        }
-
-        .wheel-container {
-            position: relative;
-            width: 280px;
-            height: 280px;
-            margin: 20px auto;
-        }
-
-        .wheel {
+            padding: 0 20px;
             width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 6px solid #2b2b2b;
-            position: relative;
+            max-width: 500px;
+        }
+
+        .flower-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px 20px;
+            margin: 20px auto 0 auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+        }
+
+        .flower-image-container {
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
             overflow: hidden;
-            background: conic-gradient(
-                #fceade 0deg 180deg,
-                #f4a261 180deg 360deg
-            );
-            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-        }
-
-        .wheel-slice-text {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            top: 0;
-            left: 50%;
-            transform-origin: 0% 100%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding-left: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #2b2b2b;
-        }
-
-        .slice-1 { transform: rotate(0deg); }
-        .slice-2 { transform: rotate(180deg); }
-
-        .wheel-pointer {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 20px solid #2b2b2b;
-            z-index: 10;
-        }
-
-        .wheel-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            background: #2b2b2b;
-            border-radius: 50%;
-            color: white;
+            position: relative;
+            background: #fff;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 5;
         }
 
-        .result-pill {
-            margin-top: 15px;
-            display: inline-block;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        .flower-image-container img {
+            width: 140%;
+            height: 140%;
+            object-fit: cover;
+            object-position: center 35%; /* Crops out blue edges and text */
+            transition: transform 0.4s ease;
+        }
+
+        .flower-image-container img.pop {
+            transform: scale(1.15);
+        }
+
+        .flower-message {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: #444;
+            margin-bottom: 20px;
+            min-height: 40px;
         }
 
         /* Envelope Letter Section */
@@ -570,23 +533,31 @@
         <div class="more-reasons">...and a hundred more I ran out of room for</div>
     </div>
 
-    <!-- Spin Wheel Section with Text Labels -->
-    <div class="wheel-section">
-        <h2 class="section-title">Spin for Your Birthday Surprise</h2>
-        <p class="section-subtitle">2 things could happen next</p>
+    <!-- Digital Flower Section 1 -->
+    <div class="flower-section">
+        <h2 class="section-title">A Little Something Extra</h2>
+        <p class="section-subtitle">Tap to bloom your digital bouquet</p>
         
-        <div class="wheel-container">
-            <div class="wheel-pointer"></div>
-            <div class="wheel" id="surpriseWheel">
-                <div class="wheel-slice-text slice-1">Something Special</div>
-                <div class="wheel-slice-text slice-2">Something Sweet</div>
+        <div class="flower-card">
+            <div class="flower-image-container">
+                <img id="flowerImage1" src="image_a3383b.jpg" alt="Digital Flower Bouquet">
             </div>
-            <div class="wheel-center">▶</div>
+            <div class="flower-message" id="flowerMessage1">For someone as lovely as you!</div>
+            <button class="wish-btn" onclick="revealFlower(1)" style="margin-bottom: 0;">Get Your Flowers 💐</button>
         </div>
+    </div>
+
+    <!-- Digital Flower Section 2 (Replaced Spin Wheel) -->
+    <div class="flower-section">
+        <h2 class="section-title">Another Special Bouquet</h2>
+        <p class="section-subtitle">Because one isn't enough for today</p>
         
-        <button class="wish-btn" onclick="spinWheel()" style="margin-top: 15px; margin-bottom: 10px;">Spin the Wheel</button>
-        <div>
-            <div class="result-pill" id="wheelResult">🎁 Something Special</div>
+        <div class="flower-card">
+            <div class="flower-image-container">
+                <img id="flowerImage2" src="image_a3383b.jpg" alt="Digital Flower Bouquet">
+            </div>
+            <div class="flower-message" id="flowerMessage2">May your day be filled with extra sunshine!</div>
+            <button class="wish-btn" onclick="revealFlower(2)" style="margin-bottom: 0;">Open Second Bouquet 🌷</button>
         </div>
     </div>
 
@@ -594,7 +565,7 @@
     <div class="envelope-section">
         <div class="envelope-card" onclick="openModal()">
             <div class="envelope-graphic">
-                <span class="envelope-icon">✉️</span>
+                <span class="envelope-icon">✉️️</span>
             </div>
             <div style="font-weight: 600; font-size: 0.9rem;">Tap to open</div>
         </div>
@@ -635,7 +606,7 @@
             <div class="song-top">
                 <div class="song-index">02</div>
                 <div class="song-details">
-                    <h4>Transform <span style="font-size: 0.75rem; color: #1db954; font-weight: 600;">SPOTIFY</span>
+                    <h4>Transform <span style="font-size: 0.75rem; color: #1db954; font-weight: 600;">SPOTIFY</span></h4>
                     <p>Daniel Caesar</p>
                     <p style="font-style: italic; font-size: 0.75rem; margin-top: 4px;">"Because every time I listen to this, it reminds me of how you completely brighten up my days and make every thing feel lighter just by being around."</p>
                 </div>
@@ -660,7 +631,6 @@
 
         // Combined Wish & Fireworks Action
         function makeWish() {
-            // Trigger Fireworks Animation
             const duration = 3 * 1000;
             const animationEnd = Date.now() + duration;
             const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#f4a261', '#fceade'];
@@ -686,36 +656,42 @@
                 }
             }());
 
-            // Trigger Alert Message
             alert("✨ Your wish has been sent to the Universe!");
         }
 
-        // Spin Wheel Logic
-        let currentRotation = 0;
-        let isSpinning = false;
+        // Digital Flower Reveal & Fireworks Logic for Multiple Bouquets
+        const flowerMessages1 = [
+            "For someone as lovely as you!",
+            "Brighter than any flower out there 🤍",
+            "A little digital bloom for your special day!",
+            "Because you bring so much color into everyday life :>",
+            "Pure sweetness, just like you."
+        ];
 
-        function spinWheel() {
-            if (isSpinning) return;
-            isSpinning = true;
+        const flowerMessages2 = [
+            "May your day be filled with extra sunshine!",
+            "Sending you the warmest hugs and blooms! ✨",
+            "You deserve all the prettiest things today.",
+            "Hope this brings a smile to your face :>",
+            "Wishing you a wonderful birthday ahead!"
+        ];
 
-            const wheel = document.getElementById('surpriseWheel');
-            const resultPill = document.getElementById('wheelResult');
-            
-            resultPill.innerText = "Spinning...";
+        function revealFlower(sectionNum) {
+            const messages = sectionNum === 1 ? flowerMessages1 : flowerMessages2;
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            const imgElement = document.getElementById('flowerImage' + sectionNum);
+            const msg = document.getElementById('flowerMessage' + sectionNum);
 
-            const outcomeIndex = Math.floor(Math.random() * 2);
-            const outcomes = ["🎁 Something Special", "🍪 Something Sweet"];
-            
-            const targetOffset = outcomeIndex === 0 ? 90 : 270;
-            const extraSpins = 360 * 5; 
-            currentRotation = Math.ceil(currentRotation / 360) * 360 + extraSpins + (360 - targetOffset);
+            msg.innerText = randomMessage;
 
-            wheel.style.transform = `rotate(${currentRotation}deg)`;
+            imgElement.classList.add('pop');
+            setTimeout(() => imgElement.classList.remove('pop'), 400);
 
-            setTimeout(() => {
-                resultPill.innerText = outcomes[outcomeIndex];
-                isSpinning = false;
-            }, 4000);
+            confetti({
+                particleCount: 60,
+                spread: 70,
+                origin: { y: 0.7 }
+            });
         }
 
         // Modal Letter Logic
